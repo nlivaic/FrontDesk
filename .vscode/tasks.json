@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build.FrontDesk.SharedKernel",
             "command": "dotnet",
             "type": "process",
             "group": {
@@ -12,6 +12,34 @@
             "args": [
                 "build",
                 "${workspaceFolder}/FrontDesk.SharedKernel/FrontDesk.SharedKernel.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }, 
+        {
+            "label": "build.Scheduling.Core",
+            "command": "dotnet",
+            "type": "process",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "args": [
+                "build",
+                "${workspaceFolder}/Scheduling.Core/Scheduling.Core.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }, 
+        {
+            "label": "build.Scheduling.Infrastructure",
+            "command": "dotnet",
+            "type": "process",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "args": [
+                "build",
+                "${workspaceFolder}/Scheduling.Infrastructure/Scheduling.Infrastructure.csproj"
             ],
             "problemMatcher": "$msCompile"
         }, 

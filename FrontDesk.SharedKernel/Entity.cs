@@ -4,7 +4,7 @@ namespace FrontDesk.SharedKernel {
     public abstract class Entity<TId> : IEquatable<Entity<TId>>
     {
         public TId Id { get; protected set; }
-        public Entity(TId id)
+        protected Entity(TId id)
         {
             if (Object.Equals(id, default(TId)))
             {
@@ -13,9 +13,36 @@ namespace FrontDesk.SharedKernel {
             this.Id = id;
         }
 
+        /// <summary>
+        /// Required by Entity Framework.
+        /// </summary>
+        protected Entity()
+        {
+
+        }
+
+        public override bool Equals(object otherObject)
+        {
+            var entity = otherObject as Entity<TId>;
+            if (entity != null)
+            {
+                return this.Equals(entity);
+            }
+            return base.Equals(otherObject);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
+        }
+
         public bool Equals(Entity<TId> other)
         {
-            throw new NotImplementedException();
+            if (other == null)
+            {
+                return false;
+            }
+            return this.Id.Equals(other.Id);
         }
     }
 }

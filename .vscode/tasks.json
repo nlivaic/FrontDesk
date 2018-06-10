@@ -44,7 +44,7 @@
             "problemMatcher": "$msCompile"
         }, 
         {
-            "label": "buildTest",
+            "label": "build.FrontDesk.SharedKernel.UnitTests",
             "command": "dotnet",
             "type": "process",
             "group": {
@@ -53,16 +53,34 @@
             },
             "args": [
                 "build",
-                "${workspaceFolder}/SportsStore.Tests/SportsStore.Tests.csproj"
+                "${workspaceFolder}/FrontDesk.SharedKernel.UnitTests/FrontDesk.SharedKernel.UnitTests.csproj"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "runTest",
+            "label": "run.FrontDesk.SharedKernel.UnitTests",
             "command": "dotnet",
             "args": [
                 "test",
-                "${workspaceFolder}/SportsStore.Tests"
+                "${workspaceFolder}/FrontDesk.SharedKernel.UnitTests"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "run.Scheduling.Core.UnitTests",
+            "command": "dotnet",
+            "args": [
+                "test",
+                "${workspaceFolder}/Scheduling.Core.UnitTests"
             ],
             "group": {
                 "kind": "test",

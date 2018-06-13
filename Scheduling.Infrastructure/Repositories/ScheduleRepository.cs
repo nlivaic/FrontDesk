@@ -10,7 +10,7 @@ namespace Scheduling.Infrastructure.Repositories {
 
         public Schedule GetScheduleForDate(int clinic, DateTime date)
         {
-            return new Schedule();
+            throw new NotImplementedException();
         }
 
         public void Update(Schedule schedule)

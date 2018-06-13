@@ -13,7 +13,7 @@ namespace Scheduling.Infrastructure {
             if (!optionsBuilder.IsConfigured)
             {
                 // #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;userid=root;pwd=rootpw;port=3306;database=Scheduling;sslmode=none;");
+                optionsBuilder.UseMySql("server=localhost;userid=root;pwd=rootpw;port=3306;database=schedule;sslmode=none;");
             }
         }
 

@@ -1,9 +1,9 @@
 using System;
 
 namespace FrontDesk.SharedKernel {
-    public class DateTimeRange {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+    public class DateTimeRange : ValueObject<DateTimeRange> {
+        public DateTime StartDate { get; private set; }
+        public DateTime EndDate { get; private set; }
         
         public DateTimeRange(DateTime startDate, DateTime endDate) {
             if (startDate < endDate)
@@ -19,5 +19,7 @@ namespace FrontDesk.SharedKernel {
             this.StartDate = startDate;
             this.EndDate = startDate.Add(timeLength);
         }
+
+        protected DateTimeRange() { }
     }
 }

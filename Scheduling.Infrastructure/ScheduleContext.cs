@@ -27,6 +27,7 @@ namespace Scheduling.Infrastructure {
                 entity.ToTable("appointment");
                 entity.Ignore(a => a.IsPotentiallyConflicting);
                 entity.Ignore(a => a.State);
+                entity.OwnsOne(a => a.TimeRange);
             });
         }
     }

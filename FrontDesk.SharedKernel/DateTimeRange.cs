@@ -24,5 +24,10 @@ namespace FrontDesk.SharedKernel {
         /// Needed by EF Core.
         /// </summary>
         protected DateTimeRange() { }
+
+        public bool IsOnDate(DateTime targetDate)
+        {
+            return StartDate >= targetDate.Date && EndDate < targetDate.Date.AddDays(1);
+        }
     }
 }

@@ -25,20 +25,18 @@ namespace Scheduling.Infrastructure.Repositories {
 
         public void Update(Schedule schedule)
         {
-            _context.Attach(schedule);
             foreach (Appointment appointment in schedule.Appointments)
             {
-                Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry entity = _context.Entry(appointment);
                 switch (appointment.State)
                 {
                     case TrackingState.Added:
-                        entity.State = EntityState.Added;
+                        _context.Attach(appointment).State = EntityState.Added;
                         break;
                     case TrackingState.Modified:
-                        entity.State = EntityState.Modified;
+                        _context.Attach(appointment).State = EntityState.Modified;
                         break;
                     case TrackingState.Deleted:
-                        entity.State = EntityState.Deleted;
+                        _context.Attach(appointment).State = EntityState.Deleted;
                         break;
                 }
             }
@@ -49,6 +47,5 @@ namespace Scheduling.Infrastructure.Repositories {
         {
             return _context.Schedules.Where(s => s.ClinicId == clinicId).Select(s => s.Id).Single();
         }
-        
     }
 }

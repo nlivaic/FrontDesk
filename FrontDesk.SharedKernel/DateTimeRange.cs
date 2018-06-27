@@ -29,5 +29,10 @@ namespace FrontDesk.SharedKernel {
         {
             return StartDate >= targetDate.Date && EndDate < targetDate.Date.AddDays(1);
         }
+
+        public override string ToString()
+        {
+            return String.Format("{0} - {1}", StartDate.ToString(), EndDate.ToString());
+        }
     }
 }

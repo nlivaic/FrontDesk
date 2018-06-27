@@ -1,3 +1,32 @@
-@model Schedule
+@model IEnumerable<AppointmentViewModel>
 
-Hello world from view.
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width:device-width" />
+    <title>Appointments</title>
+</head>
+<body>
+    <h2>Appointments</h2>
+    <a asp-action="Create">New appointment</a>
+    <hr />
+    @foreach (AppointmentViewModel appointment in Model)
+    {
+        @:Title: @appointment.Title<br />
+        @:Start Time: @appointment.StartTime<br />
+        @:End Time: @appointment.EndTime<br />
+        @:Client: @appointment.ClientId<br />
+        @:Patient: @appointment.PatientId<br />
+        @:Exam Room: @appointment.RoomId<br />
+        @:Doctor: @appointment.DoctorId<br />
+        @:Appointment Type: @appointment.AppointmentTypeId<br />
+        @:Date Confirmed: @appointment.IsConfirmed<br />
+        <a asp-action="Edit" asp-route-appointmentId="@appointment.AppointmentId" asp-route-startDate="@appointment.StartTime.Date.ToString("yyyy-MM-dd")">Edit</a>
+        <hr />
+    }
+</body>
+</html>

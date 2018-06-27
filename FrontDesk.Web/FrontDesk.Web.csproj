@@ -16,6 +16,7 @@
     <ProjectReference Include="..\Scheduling.Core\Scheduling.Core.csproj" />
     <ProjectReference Include="..\FrontDesk.SharedKernel\FrontDesk.SharedKernel.csproj" />
     <ProjectReference Include="..\Scheduling.Infrastructure\Scheduling.Infrastructure.csproj" />
+    <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,26 @@
+@model AppointmentViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width:device-width" />
+    <title>Appointment</title>
+</head>
+<body>
+    <form asp-action="Edit" method="post">
+        <h3>Appointment</h3>
+        <label asp-for="@Model.ClientId"></label>
+        <input type="text" asp-for="@Model.ClientId"><br />
+        <label asp-for="@Model.PatientName"></label>
+        <input type="text" asp-for="@Model.PatientName"><br />
+        <label asp-for="@Model.StartTime"></label>
+        <input type="text" asp-for="@Model.StartTime"><br />
+        <label asp-for="@Model.EndTime"></label>
+        <input type="text" asp-for="@Model.EndTime"><br />
+        <br />
+        <button asp-action="Edit">Save</button>
+    </form>
+</body>

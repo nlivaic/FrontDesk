@@ -30,13 +30,13 @@ namespace Scheduling.Infrastructure.Repositories {
                 switch (appointment.State)
                 {
                     case TrackingState.Added:
-                        _context.Attach(appointment).State = EntityState.Added;
+                        _context.Add(appointment);
                         break;
                     case TrackingState.Modified:
-                        _context.Attach(appointment).State = EntityState.Modified;
+                        _context.Update(appointment);
                         break;
                     case TrackingState.Deleted:
-                        _context.Attach(appointment).State = EntityState.Deleted;
+                        _context.Remove(appointment);
                         break;
                 }
             }

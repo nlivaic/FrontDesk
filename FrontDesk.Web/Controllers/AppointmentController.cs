@@ -5,6 +5,7 @@ using Scheduling.Core.Domain.Model.Interfaces;
 using Scheduling.Core.Domain.Model.ScheduleAggregate;
 using System.Linq;
 using FrontDesk.Web.Models;
+using FrontDesk.SharedKernel;
 
 namespace FrontDesk.Web.Controllers.Home {
     public class AppointmentController : Controller {
@@ -40,13 +41,22 @@ namespace FrontDesk.Web.Controllers.Home {
 
 
         [HttpPost]
-        public void Edit(AppointmentViewModel appointment)
+        public void Edit(AppointmentViewModel appointment, DateTime startDate)
         {
-            Schedule schedule = _repository.GetScheduleForDate(1, new DateTime(2016, 6, 17));
-            Appointment newAppointment = Appointment.Create(schedule.Id, appointment.ClientId, appointment.PatientId, 
-                               appointment.RoomId, appointment.StartTime, appointment.EndTime, 
-                               appointment.AppointmentTypeId, appointment.DoctorId, appointment.Title);
-            schedule.AddNewAppointment(newAppointment);
+            Schedule schedule = _repository.GetScheduleForDate(1, new DateTime(2018, 6, 16));
+            if (appointment.AppointmentId != default(Guid))
+            {
+                Appointment appointmentToUpdate = schedule.Appointments.Where(a => a.Id == appointment.AppointmentId).FirstOrDefault();
+                appointmentToUpdate.UpdateRoom(appointment.RoomId);
+                appointmentToUpdate.UpdateTime(new DateTimeRange(appointment.StartTime, appointment.EndTime));
+            }
+            else
+            {
+                Appointment newAppointment = Appointment.Create(schedule.Id, appointment.ClientId, appointment.PatientId, 
+                                appointment.RoomId, appointment.StartTime, appointment.EndTime, 
+                                appointment.AppointmentTypeId, appointment.DoctorId, appointment.Title);
+                schedule.AddNewAppointment(newAppointment);
+            }
             _repository.Update(schedule);
         }
     }

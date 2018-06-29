@@ -11,6 +11,8 @@
 </head>
 <body>
     <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="@Model.AppointmentId">
+        <input type="hidden" asp-route-startDate="@Model.StartTime.Date.ToString("yyyy-MM-dd")">
         <h3>Appointment</h3>
         <label asp-for="@Model.ClientId"></label>
         <input type="text" asp-for="@Model.ClientId"><br />

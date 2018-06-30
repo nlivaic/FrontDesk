@@ -53,7 +53,6 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
             {
                 throw new ArgumentException("Appointment not scheduled.");
             }
-            _appointments.Remove(appointment);
             appointment.State = TrackingState.Deleted;
         }
 

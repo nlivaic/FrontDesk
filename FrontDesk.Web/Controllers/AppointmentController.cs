@@ -41,7 +41,7 @@ namespace FrontDesk.Web.Controllers.Home {
 
 
         [HttpPost]
-        public void Edit(AppointmentViewModel appointment, DateTime startDate)
+        public RedirectToActionResult Edit(AppointmentViewModel appointment, DateTime startDate)
         {
             Schedule schedule = _repository.GetScheduleForDate(1, new DateTime(2018, 6, 16));
             if (appointment.AppointmentId != default(Guid))
@@ -58,7 +58,17 @@ namespace FrontDesk.Web.Controllers.Home {
                 schedule.AddNewAppointment(newAppointment);
             }
             _repository.Update(schedule);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public RedirectToActionResult Delete(Guid appointmentId, DateTime startDate)
+        {
+            Schedule schedule = _repository.GetScheduleForDate(1, new DateTime(2018, 6, 16));
+            Appointment appointment = schedule.Appointments.Single(a => a.Id == appointmentId);
+            schedule.DeleteAppointment(appointment);
+            _repository.Update(schedule);
+            return RedirectToAction(nameof(Index));
         }
     }
-
 }

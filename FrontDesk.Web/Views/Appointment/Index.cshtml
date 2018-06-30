@@ -26,6 +26,11 @@
         @:Appointment Type: @appointment.AppointmentTypeId<br />
         @:Date Confirmed: @appointment.IsConfirmed<br />
         <a asp-action="Edit" asp-route-appointmentId="@appointment.AppointmentId" asp-route-startDate="@appointment.StartTime.Date.ToString("yyyy-MM-dd")">Edit</a>
+        <form asp-action="Delete" method="post">
+            <input type="hidden" name="appointmentId" value="@appointment.AppointmentId">
+            <input type="hidden" name="startDate" value="@appointment.StartTime.Date.ToString("yyyy-MM-dd")">
+            <button type="submit">Delete</button>
+        </form>
         <hr />
     }
 </body>

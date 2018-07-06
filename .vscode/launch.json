@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/FrontDesk.Web/bin/Debug/netcoreapp2.0/FrontDesk.Web.dll",
+            "program": "${workspaceFolder}/FrontDesk.Web/bin/Debug/netcoreapp2.1/FrontDesk.Web.dll",
             "args": [],
             "cwd": "${workspaceFolder}/FrontDesk.Web",
             "stopAtEntry": false,

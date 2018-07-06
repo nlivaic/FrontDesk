@@ -24,9 +24,12 @@ namespace FrontDesk.SharedKernel {
         public static void Raise<T>(T args) where T : IDomainEvent
         {
             Action<T> actionHandler = null;
-            foreach (IEventHandler<T> handler in ServiceProvider.GetServices<IEventHandler<T>>())
+            if (ServiceProvider != null)
             {
-                handler.Handle(args);
+                foreach (IEventHandler<T> handler in ServiceProvider.GetServices<IEventHandler<T>>())
+                {
+                    handler.Handle(args);
+                }
             }
             if (actions != null)
             {

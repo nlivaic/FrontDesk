@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FrontDesk.SharedKernel;
 using FrontDesk.SharedKernel.Enums;
+using Scheduling.Core.Domain.Model.Events;
 
 namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
     public class Schedule : Entity<Guid> {
@@ -27,7 +28,7 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
             this.ClinicId = clinicId;
             this._appointments = new List<Appointment>(appointments);
 
-            /* Register for handling an AppointmentUpdatedEvent. */
+            DomainEvents.Register<AppointmentUpdatedEvent>(Handle);
         }
         
         /// <summary>
@@ -56,8 +57,22 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
             appointment.State = TrackingState.Deleted;
         }
 
-        // MarkConflictingAppointments
+        public void MarkConflictingAppointments()
+        {
+            // ...
+        }
         
-        /* Handle(AppointmentUpdatedEvent) */
+        /// <summary>
+        /// Callback.
+        /// Used to maintain a business invariant on appointment conflicts.
+        /// Triggered on associated appointments change.
+        /// A handler is used because we do not have a reference from 
+        /// Appointment back to Schedule aggregate root.
+        /// </summary>
+        /// <param name="args"></param>
+        public void Handle(AppointmentUpdatedEvent args)
+        {
+            MarkConflictingAppointments();
+        }
     }
 }

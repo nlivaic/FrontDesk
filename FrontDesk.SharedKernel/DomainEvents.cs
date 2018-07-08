@@ -5,17 +5,21 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FrontDesk.SharedKernel {
     public static class DomainEvents {
+        [ThreadStatic]  // So that each thread has its own callbacks.
         private static List<Delegate> actions;
 
         public static IServiceProvider ServiceProvider { get; set; }
 
         public static void Register<T>(Action<T> callback) where T : IDomainEvent
         {
-            if (actions != null)
+            if (actions == null)
             {
                 actions = new List<Delegate>();
             }
-            actions.Add(callback);
+            if (!actions.Contains(callback))
+            {
+                actions.Add(callback);
+            }
         }
         public static void ClearCallbacks()
         {

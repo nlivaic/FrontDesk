@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FrontDesk.SharedKernel;
+using FrontDesk.SharedKernel.Interfaces;
+using FrontDesk.Web.Controllers.Hub;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Scheduling.Core.Domain.Model.Events;
 using Scheduling.Core.Domain.Model.Interfaces;
 using Scheduling.Infrastructure;
 using Scheduling.Infrastructure.Repositories;
@@ -21,6 +24,7 @@ namespace FrontDesk.Web
         {
             services.AddTransient<IScheduleRepository, ScheduleRepository>();
             services.AddTransient<ScheduleContext, ScheduleContext>();
+            services.AddTransient<IEventHandler<AppointmentUpdatedEvent>, AppointmentUpdatedHandler>();
             services.AddMvc();
             DomainEvents.ServiceProvider = services.BuildServiceProvider();
         }

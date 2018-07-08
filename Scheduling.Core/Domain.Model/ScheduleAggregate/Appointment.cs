@@ -1,5 +1,6 @@
 using FrontDesk.SharedKernel;
 using FrontDesk.SharedKernel.Enums;
+using Scheduling.Core.Domain.Model.Events;
 using System;
 
 namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
@@ -31,12 +32,14 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
         public void UpdateRoom(int roomId)
         {
             this.RoomId = roomId;
-            /* Raise AppointmentUpdatedEvent. */
+            AppointmentUpdatedEvent appointmentUpdated = new AppointmentUpdatedEvent(this);
+            DomainEvents.Raise(appointmentUpdated);
         }
         public void UpdateTime(DateTimeRange timeRange)
         {
             this.TimeRange = timeRange;
-            /* Raise AppointmentUpdatedEvent. */
+            AppointmentUpdatedEvent appointmentUpdated = new AppointmentUpdatedEvent(this);
+            DomainEvents.Raise(appointmentUpdated);
         }
         public static Appointment Create(Guid scheduleId, 
             int clientId, int patientId, int roomId, 

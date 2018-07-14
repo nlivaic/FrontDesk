@@ -1,4 +1,5 @@
 using FrontDesk.SharedKernel.Interfaces;
+using Scheduling.Core.Application.Services.Interfaces;
 using Scheduling.Core.Domain.Model.Events;
 
 namespace Scheduling.Core.Application.Services

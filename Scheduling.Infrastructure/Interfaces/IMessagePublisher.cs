@@ -1,6 +1,6 @@
 using FrontDesk.SharedKernel.Interfaces;
 
-namespace Scheduling.Core.Application.Services.Interfaces
+namespace Scheduling.Infrastructure.Services.Interfaces
 {
     public interface IMessagePublisher
     {

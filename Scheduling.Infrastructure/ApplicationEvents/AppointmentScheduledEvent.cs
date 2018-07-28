@@ -1,8 +1,8 @@
 using System;
 using FrontDesk.SharedKernel.Interfaces;
-using Scheduling.Core.Application.Services.DTOs;
+using Scheduling.Infrastructure.Services;
 
-namespace Scheduling.Core.Application.Services.ApplicationEvents
+namespace Scheduling.Infrastructure.ApplicationEvents
 {
     public class AppointmentScheduledEvent : IApplicationEvent
     {

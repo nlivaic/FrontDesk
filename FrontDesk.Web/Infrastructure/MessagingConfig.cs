@@ -7,8 +7,6 @@ namespace FrontDesk.Web.Controllers.Infrastructure
     {
         internal static void StartCheckingMessages()
         {
-            SharedKernel.DomainEvents.Raise(new Scheduling.Infrastructure.ApplicationEvents.AppointmentConfirmedEvent(new System.Guid("cbcbfe39-b15b-4b41-8757-68c0c46796c6")));
-            return;
             var thread = new Thread(new ThreadStart(StartJob));
             thread.IsBackground = true;
             thread.Name = "ThreadFunc";

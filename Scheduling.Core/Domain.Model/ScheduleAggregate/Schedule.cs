@@ -45,7 +45,7 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
             _appointments.Add(appointment);
             appointment.State = TrackingState.Added;
 
-            /* Raise AppointmentScheduledEvent. */
+            DomainEvents.Raise(new AppointmentScheduledEvent(appointment));
         }
 
         public void DeleteAppointment(Appointment appointment)

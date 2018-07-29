@@ -12,7 +12,7 @@ namespace Scheduling.Infrastructure
 
         public void Publish(IApplicationEvent applicationEvent)
         {
-            #warning Implement sending applicationEvent to a messaging queue.
+            #warning Implement publishing applicationEvent to a messaging queue.
             #warning Send event to queue as JSON.
         }
     }

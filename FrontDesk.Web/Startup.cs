@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FrontDesk.SharedKernel;
 using FrontDesk.SharedKernel.Interfaces;
 using FrontDesk.Web.Controllers.Hub;
+using FrontDesk.Web.Controllers.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,10 +28,14 @@ namespace FrontDesk.Web
             services.AddTransient<IScheduleRepository, ScheduleRepository>();
             services.AddTransient<ScheduleContext, ScheduleContext>();
             services.AddTransient<IEventHandler<AppointmentUpdatedEvent>, AppointmentUpdatedHandler>();
+            services.AddTransient<IEventHandler<AppointmentConfirmedEvent>, AppointmentConfirmedHandler>();
             services.AddTransient<IEventHandler<AppointmentScheduledEvent>, RelayAppointmentScheduledService>();
+            services.AddTransient<IEventHandler<Scheduling.Infrastructure.ApplicationEvents.AppointmentConfirmedEvent>, EmailConfirmationHandler>();
+            services.AddTransient<IAppointmentDTORepository, AppointmentDTORepository>();
             services.AddTransient<IMessagePublisher, ServiceBrokerMessagePublisher>();
             services.AddMvc();
             DomainEvents.ServiceProvider = services.BuildServiceProvider();
+            MessagingConfig.StartCheckingMessages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

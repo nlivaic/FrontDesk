@@ -41,6 +41,14 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
             AppointmentUpdatedEvent appointmentUpdated = new AppointmentUpdatedEvent(this);
             DomainEvents.Raise(appointmentUpdated);
         }
+        public void Confirm(DateTime dateConfirmed)
+        {
+            if (!DateTimeConfirmed.HasValue)
+            {
+                DateTimeConfirmed = dateConfirmed;
+            }
+            DomainEvents.Raise(new AppointmentConfirmedEvent(this));
+        }
         public static Appointment Create(Guid scheduleId, 
             int clientId, int patientId, int roomId, 
             DateTime startTime, DateTime endTime, 

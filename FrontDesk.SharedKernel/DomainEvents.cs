@@ -40,7 +40,7 @@ namespace FrontDesk.SharedKernel {
                 foreach (var action in actions)
                 {
                     actionHandler = action as Action<T>;
-                    if (action != null)
+                    if (actionHandler != null)
                     {
                         actionHandler(args);
                     }

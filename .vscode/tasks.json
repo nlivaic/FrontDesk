@@ -72,6 +72,20 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "build.Scheduling.Infrastructure.UnitTests",
+            "command": "dotnet",
+            "type": "process",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "args": [
+                "build",
+                "${workspaceFolder}/Scheduling.Infrastructure.UnitTests/Scheduling.Infrastructure.UnitTests.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "run.FrontDesk.SharedKernel.UnitTests",
             "command": "dotnet",
             "args": [
@@ -95,6 +109,24 @@
             "args": [
                 "test",
                 "${workspaceFolder}/Scheduling.Core.UnitTests"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "run.Scheduling.Infrastructure.UnitTests",
+            "command": "dotnet",
+            "args": [
+                "test",
+                "${workspaceFolder}/Scheduling.Infrastructure.UnitTests"
             ],
             "group": {
                 "kind": "test",

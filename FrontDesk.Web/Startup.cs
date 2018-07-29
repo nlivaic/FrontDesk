@@ -14,6 +14,7 @@ using Scheduling.Core.Domain.Model.Interfaces;
 using Scheduling.Infrastructure;
 using Scheduling.Infrastructure.Repositories;
 using Scheduling.Infrastructure.Services;
+using Scheduling.Infrastructure.Services.Interfaces;
 
 namespace FrontDesk.Web
 {
@@ -27,6 +28,7 @@ namespace FrontDesk.Web
             services.AddTransient<ScheduleContext, ScheduleContext>();
             services.AddTransient<IEventHandler<AppointmentUpdatedEvent>, AppointmentUpdatedHandler>();
             services.AddTransient<IEventHandler<AppointmentScheduledEvent>, RelayAppointmentScheduledService>();
+            services.AddTransient<IMessagePublisher, ServiceBrokerMessagePublisher>();
             services.AddMvc();
             DomainEvents.ServiceProvider = services.BuildServiceProvider();
         }

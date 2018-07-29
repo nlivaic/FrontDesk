@@ -10,7 +10,6 @@ namespace Scheduling.Infrastructure.Services
         private readonly IMessagePublisher _publisher;
         private readonly IAppointmentDTORepository _repository;
         
-        #warning Create an implementation for IMessagePublisher and register it with IoC.
         public RelayAppointmentScheduledService(IAppointmentDTORepository repo, IMessagePublisher publisher)
         {
             this._repository = repo;

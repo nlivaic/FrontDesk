@@ -7,18 +7,19 @@ namespace Scheduling.Infrastructure.Services
 {
     public class RelayAppointmentScheduledService : IEventHandler<Core.Domain.Model.Events.AppointmentScheduledEvent>
     {
-        public IMessagePublisher _publisher { get; private set; }
+        private readonly IMessagePublisher _publisher;
+        private readonly IAppointmentDTORepository _repository;
         
         #warning Create an implementation for IMessagePublisher and register it with IoC.
-        public RelayAppointmentScheduledService(IMessagePublisher publisher)
+        public RelayAppointmentScheduledService(IAppointmentDTORepository repo, IMessagePublisher publisher)
         {
+            this._repository = repo;
             this._publisher = publisher;
         }
 
         public void Handle(Core.Domain.Model.Events.AppointmentScheduledEvent args)
         {
-            #warning Fetch AppointmentDTO via repo?
-            AppointmentDTO appointment = null;
+            AppointmentDTO appointment = this._repository.GetFromAppointment(args.Appointment);
             ApplicationEvents.AppointmentScheduledEvent newEvent = new ApplicationEvents.AppointmentScheduledEvent(appointment);
             _publisher.Publish(newEvent);
         }

@@ -43,7 +43,7 @@ namespace FrontDesk.Web.Controllers.Home {
         [HttpPost]
         public RedirectToActionResult Edit(AppointmentViewModel appointment, DateTime startDate)
         {
-            Schedule schedule = _repository.GetScheduleForDate(1, new DateTime(2018, 6, 16));
+            Schedule schedule = _repository.GetScheduleForDate(1, startDate);
             if (appointment.AppointmentId != default(Guid))
             {
                 Appointment appointmentToUpdate = schedule.Appointments.Where(a => a.Id == appointment.AppointmentId).FirstOrDefault();

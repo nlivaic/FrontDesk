@@ -19,7 +19,7 @@ namespace GenericRepositoryDemo
         
     }
 
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : IAggregateRoot
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot
     {
         public void Delete(TEntity entity)
         {

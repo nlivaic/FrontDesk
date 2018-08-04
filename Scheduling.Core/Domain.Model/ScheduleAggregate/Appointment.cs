@@ -27,7 +27,7 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
         /// <summary>
         /// Required by EF.
         /// </summary>
-        private Appointment() : base(Guid.NewGuid()) { }
+        private Appointment() : base(/*Guid.NewGuid()*/) { }
 
         public void UpdateRoom(int roomId)
         {

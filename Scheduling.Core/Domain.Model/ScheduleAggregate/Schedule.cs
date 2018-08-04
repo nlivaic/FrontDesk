@@ -34,7 +34,10 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
         /// <summary>
         /// Required by EF.
         /// </summary>
-        private Schedule() : base(Guid.NewGuid()) { }
+        private Schedule() : base(Guid.NewGuid()) 
+        {
+            _appointments = new List<Appointment>();
+        }
 
         public void AddNewAppointment(Appointment appointment)
         {

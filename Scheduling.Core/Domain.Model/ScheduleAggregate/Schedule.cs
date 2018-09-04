@@ -6,7 +6,7 @@ using FrontDesk.SharedKernel.Enums;
 using Scheduling.Core.Domain.Model.Events;
 
 namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
-    public class Schedule : Entity<Guid> {
+    public class Schedule : AggregateRoot<Guid> {
         public int ClinicId { get; set; }        
         // Not persisted
         public DateTimeRange DateRange { get; set; }
@@ -28,7 +28,9 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
             this.ClinicId = clinicId;
             this._appointments = new List<Appointment>(appointments);
 
-            DomainEvents.Register<AppointmentUpdatedEvent>(Handle);
+            #warning Since moving domain event handling to Aggregate root, such ad hoc handler registration is not possible anymore.
+            #warning Solution proposals #1: 
+            //DomainEvents.Register<AppointmentUpdatedEvent>(Handle);
         }
         
         /// <summary>
@@ -48,7 +50,7 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
             _appointments.Add(appointment);
             appointment.State = TrackingState.Added;
 
-            DomainEvents.Raise(new AppointmentScheduledEvent(appointment));
+            AddDomainEvent(new AppointmentScheduledEvent(appointment));
         }
 
         public void DeleteAppointment(Appointment appointment)

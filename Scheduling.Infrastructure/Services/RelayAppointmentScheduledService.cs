@@ -16,11 +16,13 @@ namespace Scheduling.Infrastructure.Services
             this._publisher = publisher;
         }
 
-        public void Handle(Core.Domain.Model.Events.AppointmentScheduledEvent args)
+        public void Handle(Core.Domain.Model.Events.AppointmentScheduledEvent args) { }
+        public System.Threading.Tasks.Task Handle(Core.Domain.Model.Events.AppointmentScheduledEvent args, System.Threading.CancellationToken cancellationToken)
         {
             AppointmentDTO appointment = this._repository.GetFromAppointment(args.Appointment);
             ApplicationEvents.AppointmentScheduledEvent newEvent = new ApplicationEvents.AppointmentScheduledEvent(appointment);
             _publisher.Publish(newEvent);
+            return System.Threading.Tasks.Task.CompletedTask;
         }
     }
 

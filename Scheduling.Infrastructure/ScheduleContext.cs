@@ -1,12 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using FrontDesk.SharedKernel;
+using FrontDesk.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Scheduling.Core.Domain.Model.ScheduleAggregate;
 
 namespace Scheduling.Infrastructure {
 
-    public class ScheduleContext : DbContext
+    public class ScheduleContext : BaseDispatchContext
     {
         public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<Appointment> Appointments { get; set; }
+
+        public ScheduleContext(DomainEventsDispatcher domainEventsDispatcher) : base(domainEventsDispatcher) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -15,7 +22,7 @@ namespace Scheduling.Infrastructure {
                 // #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseMySql("server=localhost;userid=root;pwd=rootpw;port=3306;database=schedule;sslmode=none;");
             }
-        }
+        }        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

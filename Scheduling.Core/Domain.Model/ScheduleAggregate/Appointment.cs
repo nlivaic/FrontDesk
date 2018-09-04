@@ -19,10 +19,7 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
         // Not persisted
         public bool IsPotentiallyConflicting { get; set; }
         
-        public Appointment(Guid id) : base(id)
-        {
-            
-        }
+        public Appointment(Guid id) : base(id) { }
         
         /// <summary>
         /// Required by EF.
@@ -33,13 +30,13 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
         {
             this.RoomId = roomId;
             AppointmentUpdatedEvent appointmentUpdated = new AppointmentUpdatedEvent(this);
-            DomainEvents.Raise(appointmentUpdated);
+            AddDomainEvent(appointmentUpdated);
         }
         public void UpdateTime(DateTimeRange timeRange)
         {
             this.TimeRange = timeRange;
             AppointmentUpdatedEvent appointmentUpdated = new AppointmentUpdatedEvent(this);
-            DomainEvents.Raise(appointmentUpdated);
+            AddDomainEvent(appointmentUpdated);
         }
         public void Confirm(DateTime dateConfirmed)
         {
@@ -47,7 +44,7 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
             {
                 DateTimeConfirmed = dateConfirmed;
             }
-            DomainEvents.Raise(new AppointmentConfirmedEvent(this));
+            AddDomainEvent(new AppointmentConfirmedEvent(this));
         }
         public static Appointment Create(Guid scheduleId, 
             int clientId, int patientId, int roomId, 

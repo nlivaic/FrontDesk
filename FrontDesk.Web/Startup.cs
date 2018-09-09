@@ -10,6 +10,7 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Scheduling.Core.Domain.Model.Events;
 using Scheduling.Core.Domain.Model.Interfaces;
@@ -26,19 +27,16 @@ namespace FrontDesk.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ScheduleContext>(
+                options => options.UseMySql("server=localhost;userid=root;pwd=rootpw;port=3306;database=schedule;sslmode=none;")
+            );
             services.AddMediatR(typeof(AppointmentConfirmedHandler).Assembly);      // Handlers are in other assemblies, this is the way to add these assemblies.
             services.AddMediatR(typeof(RelayAppointmentScheduledService).Assembly);
             services.AddTransient<IScheduleRepository, ScheduleRepository>();
-            services.AddTransient<ScheduleContext, ScheduleContext>();
             services.AddScoped<DomainEventsDispatcher, DomainEventsDispatcher>();
-            // services.AddTransient<IEventHandler<AppointmentUpdatedEvent>, AppointmentUpdatedHandler>();
-            // services.AddTransient<IEventHandler<AppointmentConfirmedEvent>, AppointmentConfirmedHandler>();
-            // services.AddTransient<IEventHandler<AppointmentScheduledEvent>, RelayAppointmentScheduledService>();
-            // services.AddTransient<IEventHandler<Scheduling.Infrastructure.ApplicationEvents.AppointmentConfirmedEvent>, EmailConfirmationHandler>();
             services.AddTransient<IAppointmentDTORepository, AppointmentDTORepository>();
             services.AddTransient<IMessagePublisher, ServiceBrokerMessagePublisher>();
             services.AddMvc();
-            // DomainEvents.ServiceProvider = services.BuildServiceProvider();
             MessagingConfig.StartCheckingMessages();
         }
 

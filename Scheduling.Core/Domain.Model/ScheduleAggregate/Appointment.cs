@@ -30,12 +30,14 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
         {
             this.RoomId = roomId;
             AppointmentUpdatedEvent appointmentUpdated = new AppointmentUpdatedEvent(this);
+            this.State = TrackingState.Modified;
             AddDomainEvent(appointmentUpdated);
         }
         public void UpdateTime(DateTimeRange timeRange)
         {
             this.TimeRange = timeRange;
             AppointmentUpdatedEvent appointmentUpdated = new AppointmentUpdatedEvent(this);
+            this.State = TrackingState.Modified;
             AddDomainEvent(appointmentUpdated);
         }
         public void Confirm(DateTime dateConfirmed)

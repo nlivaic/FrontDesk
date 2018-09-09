@@ -9,8 +9,18 @@ namespace Scheduling.Infrastructure
     {
         private DomainEventsDispatcher _domainEventsDispatcher;
 
+        /// <summary>
+        /// Use to instantiate superclass via IoC container.
+        /// Please visit
+        /// https://github.com/aspnet/EntityFrameworkCore/issues/7533#issuecomment-353669263
+        /// </summary>
         public BaseDispatchDbContext(DbContextOptions<BaseDispatchDbContext> options) : base(options) { }
 
+        /// <summary>
+        /// Call from superclass.
+        /// Please visit
+        /// https://github.com/aspnet/EntityFrameworkCore/issues/7533#issuecomment-353669263
+        /// </summary>
         protected BaseDispatchDbContext(DomainEventsDispatcher domainEventsDispatcher, DbContextOptions options) : base(options)
         {
             _domainEventsDispatcher = domainEventsDispatcher;

@@ -2,12 +2,10 @@ using FrontDesk.SharedKernel.Interfaces;
 using Scheduling.Core.Domain.Model.Events;
 
 namespace FrontDesk.Web.Controllers.Hub {
-    public class AppointmentConfirmedHandler : IEventHandler<AppointmentConfirmedEvent> {
-        public void Handle(AppointmentConfirmedEvent args) { }
-        public System.Threading.Tasks.Task Handle(AppointmentConfirmedEvent notification, System.Threading.CancellationToken cancellationToken)
+    public class AppointmentConfirmedHandler : BaseEventHandler<AppointmentConfirmedEvent> {
+        public override void Handle(AppointmentConfirmedEvent args)
         {
             // ... SignalR here.
-            return System.Threading.Tasks.Task.CompletedTask;
         }
     }
 }

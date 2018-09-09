@@ -25,12 +25,14 @@ namespace Scheduling.Infrastructure.Repositories {
 
         public void Update(Schedule schedule)
         {
+            _context.Attach(schedule);
             foreach (Appointment appointment in schedule.Appointments)
             {
                 switch (appointment.State)
                 {
                     case TrackingState.Added:
                         _context.Add(appointment);
+                        _context.Add(appointment.TimeRange);
                         break;
                     case TrackingState.Modified:
                         _context.Update(appointment);

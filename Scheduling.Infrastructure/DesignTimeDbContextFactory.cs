@@ -2,16 +2,22 @@ using FrontDesk.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 namespace Scheduling.Infrastructure
 {
 public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ScheduleContext>
     {
+        private IConfiguration _configuration;
+        public DesignTimeDbContextFactory(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public ScheduleContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<ScheduleContext>();
 
-            var connStr = "server=localhost;userid=root;pwd=rootpw;port=3306;database=schedule;sslmode=none;";
+            var connStr = _configuration["Data:FrontDeskScheduling:ConnectionString"];
 
             builder.UseMySql(connStr, 
                 b => b.MigrationsAssembly("Scheduling.Infrastructure"));

@@ -28,8 +28,7 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
             this.ClinicId = clinicId;
             this._appointments = new List<Appointment>(appointments);
 
-            #warning Since moving domain event handling to Aggregate root, such ad hoc handler registration is not possible anymore.
-            #warning Solution proposals #1: 
+            #warning Since moving domain event handling to Entity superclass, such ad hoc handler registration is not possible anymore.
             //DomainEvents.Register<AppointmentUpdatedEvent>(Handle);
         }
         
@@ -49,7 +48,8 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
             }
             _appointments.Add(appointment);
             appointment.State = TrackingState.Added;
-
+            MarkConflictingAppointments();
+            
             AddDomainEvent(new AppointmentScheduledEvent(appointment));
         }
 
@@ -60,11 +60,13 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
                 throw new ArgumentException("Appointment not scheduled.");
             }
             appointment.State = TrackingState.Deleted;
+            MarkConflictingAppointments();
         }
 
         public void MarkConflictingAppointments()
         {
-            // ...
+            // Go through all the loaded appointments and determine if any
+            // of them are double booked.
         }
         
         /// <summary>

@@ -27,9 +27,6 @@ namespace Scheduling.Core.Domain.Model.ScheduleAggregate {
             this.DateRange = dateRange;
             this.ClinicId = clinicId;
             this._appointments = new List<Appointment>(appointments);
-
-            #warning Since moving domain event handling to Entity superclass, such ad hoc handler registration is not possible anymore.
-            //DomainEvents.Register<AppointmentUpdatedEvent>(Handle);
         }
         
         /// <summary>

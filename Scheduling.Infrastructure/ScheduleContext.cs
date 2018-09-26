@@ -4,6 +4,8 @@ using System.Linq;
 using FrontDesk.SharedKernel;
 using FrontDesk.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using Scheduling.Core.Domain.Model.ScheduleAggregate;
 
 namespace Scheduling.Infrastructure {
@@ -13,11 +15,23 @@ namespace Scheduling.Infrastructure {
         public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<Appointment> Appointments { get; set; }
 
+
+        public static LoggerFactory MyConsoleLoggerFactory = new LoggerFactory(
+            new[] {
+                new ConsoleLoggerProvider ((category, level) => 
+                    category == DbLoggerCategory.Database.Command.Name &&
+                    level == LogLevel.Information, true)
+            }
+        );
+
+
         public ScheduleContext(DomainEventsDispatcher domainEventsDispatcher, DbContextOptions<ScheduleContext> options) : base(domainEventsDispatcher, options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.EnableSensitiveDataLogging();
+            optionsBuilder
+                .UseLoggerFactory(MyConsoleLoggerFactory)
+                .EnableSensitiveDataLogging();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

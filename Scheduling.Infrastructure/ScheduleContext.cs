@@ -15,7 +15,10 @@ namespace Scheduling.Infrastructure {
 
         public ScheduleContext(DomainEventsDispatcher domainEventsDispatcher, DbContextOptions<ScheduleContext> options) : base(domainEventsDispatcher, options) { }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

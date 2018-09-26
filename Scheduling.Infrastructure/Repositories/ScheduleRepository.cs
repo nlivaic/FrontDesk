@@ -25,20 +25,23 @@ namespace Scheduling.Infrastructure.Repositories {
 
         public void Update(Schedule schedule)
         {
-            _context.Attach(schedule);
+            _context.Entry(schedule).State = EntityState.Unchanged;
             foreach (Appointment appointment in schedule.Appointments)
             {
                 switch (appointment.State)
                 {
                     case TrackingState.Added:
-                        _context.Add(appointment);
-                        _context.Add(appointment.TimeRange);
+                        //_context.Add(appointment);        // This would also work.
+                        _context.Entry(appointment).State = EntityState.Added;
+                        _context.Entry(appointment.TimeRange).State = EntityState.Added;
                         break;
                     case TrackingState.Modified:
-                        _context.Update(appointment);
+                        //_context.Update(appointment);     // This would also work.
+                        _context.Entry(appointment).State = EntityState.Modified;
                         break;
-                    case TrackingState.Deleted:
-                        _context.Remove(appointment);
+                    case TrackingState.Deleted:             
+                        // _context.Remove(appointment);       // This would also work.
+                        _context.Entry(appointment).State = EntityState.Deleted;
                         break;
                 }
             }
